@@ -3,27 +3,39 @@
 
 int main()
 {
-    bool scan = true;
+    int input;
+    char currentChar;
+    char enterPlaceholder;
+    bool addMore = true;
+    float balance;
+
     FILE *outFile;
     outFile = fopen("out.txt", "w");
 
-    while (scan)
+    while (addMore == true)
     {
-        float balance;
-        char name;
-
-        printf("Enter your name: \n");
-        int input = scanf("%c", &name);
-
-        fprintf(outFile, "%c", name);
-
-        if (name == '\n')
+        printf("Please enter your full name: ");
+        input = scanf("%c", &currentChar);
+        while (currentChar != '\n')
         {
-            printf("Enter your balance:");
-            input = scanf("%f", &balance);
-            fprintf(outFile, "$%.2f\n======================", balance);
+            input = scanf("%c", &currentChar);
+            fprintf(outFile, "%c", currentChar);
+        }
+
+        fprintf(outFile, ": $");
+        printf("Please enter your balance: ");
+        input = scanf("%f%c", &balance, &enterPlaceholder);
+        fprintf(outFile, "%0.2f", balance);
+
+        char tmp;
+        printf("Add another person ? (y/n) : ");
+        scanf("%c%c", &tmp, &enterPlaceholder);
+        if (tmp == 'n' || tmp == 'N')
+        {
+            addMore = false;
             break;
         }
     }
     fclose(outFile);
+    return 0;
 }
