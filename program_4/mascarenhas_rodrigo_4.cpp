@@ -19,10 +19,10 @@ char encode(char ch)
   int value = -1;
 
   (ch <= 122 && ch >= 97) ? value = 1 : NULL;
-  (ch <= 68 && ch >= 48) ? value = 2 : NULL;
+  (ch <= 57 && ch >= 48) ? value = 2 : NULL;
   ch == 32 ? value = 3 : NULL;
   ch == 46 ? value = 4 : NULL;
-  ch == 10 ? value = 5 : NULL;
+  (ch == 10 || ch == 13) ? value = 5 : NULL;
 
   switch (value)
   {
@@ -48,6 +48,7 @@ char encode(char ch)
     ch = 71;
     break;
   default:
+    ch = -1;
     break;
   }
 
@@ -58,13 +59,17 @@ char decode(char ch)
 {
   int value;
   (ch <= 58 && ch >= 33) ? value = 1 : NULL;
-  (ch <= 68 && ch >= 59) ? value = 1 : NULL;
+  (ch <= 68 && ch >= 59) ? value = 2 : NULL;
   ch == 69 ? value = 3 : NULL;
   ch == 70 ? value = 4 : NULL;
   ch == 71 ? value = 5 : NULL;
 
   switch (value)
   {
+  case -1:
+    // invalid
+    ch = -1;
+    break;
   case 1:
     // a-z
     ch += 64;
@@ -109,7 +114,8 @@ int main()
     char res;
     input = fscanf(file, "%c", &current);
     res = (action == 'e') ? encode(current) : decode(current);
-    fprintf(out, "%c", res);
+    if (res != -1)
+      fprintf(out, "%c", res);
   }
 
   fclose(file);
