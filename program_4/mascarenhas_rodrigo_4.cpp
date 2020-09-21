@@ -113,6 +113,8 @@ int main()
     char current;
     char res;
     input = fscanf(file, "%c", &current);
+    if (input == EOF)
+      break;
     res = (action == 'e') ? encode(current) : decode(current);
     if (res != -1)
       fprintf(out, "%c", res);
