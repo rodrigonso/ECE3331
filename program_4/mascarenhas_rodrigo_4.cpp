@@ -103,16 +103,16 @@ int main()
   char action = encodeOrDecode();
 
   int input;
-  FILE *file;
+  FILE *in;
   FILE *out;
-  file = (action == 'e') ? fopen("decoded.txt", "r") : fopen("encoded.txt", "r");
-  out = (action == 'e') ? fopen("encoded.txt", "w") : fopen("decoded.txt", "w");
+  in = fopen("input.txt", "r");
+  out = fopen("output.txt", "w");
 
   while (input != EOF)
   {
     char current;
     char res;
-    input = fscanf(file, "%c", &current);
+    input = fscanf(in, "%c", &current);
     if (input == EOF)
       break;
     res = (action == 'e') ? encode(current) : decode(current);
@@ -120,6 +120,6 @@ int main()
       fprintf(out, "%c", res);
   }
 
-  fclose(file);
+  fclose(in);
   fclose(out);
 }
