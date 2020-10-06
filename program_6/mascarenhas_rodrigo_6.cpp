@@ -6,7 +6,7 @@
 void initiate_probs(float *array);
 int main(int argc, char const *argv[])
 {
-  float prob_interval[] = {0.2, 0.47, 0.69, 0.83, 0.92, 1.0};
+  float prob_interval[] = {0.2, 0.27, 0.22, 0.14, 0.09, 0.08};
   initiate_probs(prob_interval);
 
   int num_letters = 2;
@@ -27,7 +27,6 @@ int main(int argc, char const *argv[])
       int letter = rand() % (122 + 1 - 97) + 97;
       printf("%c", i == 0 && k == 0 ? toupper(letter) : letter);
     }
-
     i > 0 ? (i == num_words - 1) ? printf(".\n") : printf(" ") : NULL;
   }
   return 0;
