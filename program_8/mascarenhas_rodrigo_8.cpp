@@ -59,7 +59,7 @@ int main(int argc, char const *argv[])
       j++;
     }
   }
-
+  fclose(file_pointer);
   return 0;
 }
 
