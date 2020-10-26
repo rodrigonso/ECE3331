@@ -19,19 +19,19 @@ int main(int argc, char const *argv[])
   fread(header, 1, 44, file_pointer);
   int size[] = {4, 4, 4, 4, 4, 2, 2, 4, 4, 2, 2, 4, 4};
   // int size[] = {0, 4, 8, 12, 4, 2, 2, 4, 4, 2, 2, 4, 4};
-  char form[] = {'c', 'u', 'c', 'c', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'c', 'u'};
+  char form[] = {'c', 'u', 'c', 'c', 'u', 's', 's', 's', 's', 's', 's', 'c', 'u'};
 
   char *chunk_id = header;
   unsigned int *chunk_size = (unsigned int *)header + 4;
   char *format = (char *)header + 8;
   char *subchunk1_id = header + 12;
   unsigned int *subchunk1_size = (unsigned int *)header + 16;
-  unsigned short *audio_format = (unsigned short *)header + 20;
-  unsigned short *num_channels = (unsigned short *)header + 22;
-  unsigned short *sample_rate = (unsigned short *)header + 24;
-  unsigned short *byte_rate = (unsigned short *)header + 28;
-  unsigned short *block_align = (unsigned short *)header + 32;
-  unsigned short *bytes_per_sample = (unsigned short *)header + 34;
+  unsigned short int *audio_format = (unsigned short int *)header + 20;
+  unsigned short int *num_channels = (unsigned short int *)header + 22;
+  unsigned short int *sample_rate = (unsigned short int *)header + 24;
+  unsigned short int *byte_rate = (unsigned short int *)header + 28;
+  unsigned short int *block_align = (unsigned short int *)header + 32;
+  unsigned short int *bytes_per_sample = (unsigned short int *)header + 34;
   char *subchunk2_id = header + 36;
   unsigned int *subchunk2_size = (unsigned int *)header + 40;
 
@@ -48,9 +48,13 @@ int main(int argc, char const *argv[])
       {
         printf("%c", *(header + j));
       }
-      else
+      else if (form[i] == 's')
       {
         printf("%hu", *(header + j));
+      }
+      else
+      {
+        printf("%u", *(header + j));
       }
       j++;
     }
