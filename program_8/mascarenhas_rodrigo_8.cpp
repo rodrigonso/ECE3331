@@ -9,7 +9,7 @@ FILE *get_file();
 int main(int argc, char const *argv[])
 
 {
-  FILE *file_pointer;
+  FILE *file_pointer = NULL;
   while (file_pointer == NULL)
   {
     file_pointer = get_file();
